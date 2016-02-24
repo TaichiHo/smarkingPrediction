@@ -1,0 +1,39 @@
+{
+  "name": "parking",
+  "version": "1.0.0",
+  "description": "The parking app for the smarking project",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "gulp"
+  },
+  "keywords": [
+    "parking"
+  ],
+  "author": "Taichi Ho",
+  "license": "ISC",
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browser-sync": "^1.8.1",
+    "browserify": "^7.0.3",
+    "gulp": "^3.8.10",
+    "gulp-notify": "^2.1.0",
+    "gulp-util": "^3.0.1",
+    "pretty-hrtime": "^0.2.2",
+    "require-dir": "^0.1.0",
+    "underscore": "^1.7.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.2.1"
+  },
+  "dependencies": {
+    "material-ui": "^0.13.0",
+    "react": "^0.14.0",
+    "react-async-script-loader": "^0.1.1",
+    "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.1"
+  }
+}
