@@ -1,3 +1,8 @@
+/**
+ * Created by Taichi1 on 2/24/16.
+ */
+
+
 (function () {
     let React = require('react');
     let ReactDOM = require('react-dom');

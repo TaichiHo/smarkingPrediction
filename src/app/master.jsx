@@ -1,6 +1,12 @@
+/**
+ * Created by Taichi1 on 2/24/16.
+ */
+
 const React = require('react');
 
 const {AppBar, DatePicker} = require('material-ui');
+var Dropzone = require('react-dropzone');
+var D3Panel = require('./d3Panel');
 
 class Master extends React.Component {
     constructor(props) {
@@ -21,6 +27,17 @@ class Master extends React.Component {
         };
     }
 
+    onDrop(files) {
+        console.log('Received files: ', files);
+    }
+
+    _onDismiss() {
+
+    }
+
+    _onShow() {
+
+    }
 
     render() {
         "use strict";
@@ -29,6 +46,10 @@ class Master extends React.Component {
             <div>
                 <AppBar
                     title={title}/>
+                <Dropzone onDrop={this.onDrop} multiple={false}
+                          accept="text/csv">
+                    <div>Upload the actual occupancy here!</div>
+                </Dropzone>
                 <DatePicker
                     mode="landscape"
                     hintText="Pick a date to see prediction"
@@ -37,6 +58,9 @@ class Master extends React.Component {
                     maxDate={this.state.maxDate}
                     disableYearSelection={this.state.disableYearSelection}
                 />
+                <D3Panel/>
+
+
             </div>);
     }
 }
