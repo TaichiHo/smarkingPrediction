@@ -38,6 +38,7 @@
     "react-async-script-loader": "^0.1.1",
     "react-dom": "^0.14.0",
     "react-dropzone": "^3.3.2",
+    "react-faux-dom": "^2.2.0",
     "react-nvd3": "^0.5.2",
     "react-router": "^2.0.0",
     "react-tap-event-plugin": "^0.2.1"

@@ -4,9 +4,10 @@
 
 const React = require('react');
 
-const {AppBar, DatePicker} = require('material-ui');
+const {AppBar, DatePicker, FlatButton} = require('material-ui');
 var Dropzone = require('react-dropzone');
 var D3Panel = require('./d3Panel');
+var NvD3Panel = require('./nvd3.jsx');
 
 class Master extends React.Component {
     constructor(props) {
@@ -35,34 +36,61 @@ class Master extends React.Component {
 
     }
 
-    _onShow() {
+    _onClickOnUpload() {
+        console.log("click");
+        this.refs.dz.open();
+    }
 
+    _handleFileUploaded() {
+        console.log("handleFileUploaded");
+        console.log(this.refs.inputFile.files[0]);
+        this.setState({
+            actual: this.refs.inputFile.files[0].preview
+        })
     }
 
     render() {
         "use strict";
         var title = "Smarking Prediction";
+        var label = "Upload Your Data";
+
+        var flatButton = <FlatButton label={label} onClick={this._onClickOnUpload.bind(this)}/>;
+
+        //<form>
+        //    <input ref="inputFile" type='file' style={{width:0, height:0}} accept="text/csv"
+        //           onchange={this._handleFileUploaded.bind(this)}/>​
+        //</form>
         return (
             <div>
                 <AppBar
-                    title={title}/>
+                    title={title} iconElementRight={flatButton}/>
+
                 <Dropzone onDrop={this.onDrop} multiple={false}
+                          ref="dz"
+                          style={{width:0, height:0}}
                           accept="text/csv">
-                    <div>Upload the actual occupancy here!</div>
                 </Dropzone>
-                <DatePicker
-                    mode="landscape"
-                    hintText="Pick a date to see prediction"
-                    autoOk={this.state.autoOk}
-                    minDate={this.state.minDate}
-                    maxDate={this.state.maxDate}
-                    disableYearSelection={this.state.disableYearSelection}
-                />
-                <D3Panel/>
+                <div style={{margin:"0 auto", width: 300}}>
+                    <DatePicker
+                        mode="landscape"
+                        hintText="Pick a date to see prediction"
+                        autoOk={this.state.autoOk}
+                        minDate={this.state.minDate}
+                        maxDate={this.state.maxDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                </div>
 
 
-            </div>);
+                <NvD3Panel actual={this.state.actual} onError={this._onError}/>
+            </div>
+        );
     }
+
+    _onError() {
+
+    }
+
 }
 
 
