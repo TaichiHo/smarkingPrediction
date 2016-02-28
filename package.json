@@ -33,6 +33,7 @@
     "d3": "^3.5.16",
     "history": "^2.0.0",
     "material-ui": "^0.13.0",
+    "moment": "^2.11.2",
     "nvd3": "^1.8.2",
     "react": "^0.14.0",
     "react-async-script-loader": "^0.1.1",

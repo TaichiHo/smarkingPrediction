@@ -4,32 +4,33 @@
 
 const React = require('react');
 
-const {AppBar, DatePicker, FlatButton} = require('material-ui');
+const {AppBar, DatePicker, FlatButton, Snackbar} = require('material-ui');
 var Dropzone = require('react-dropzone');
-var D3Panel = require('./d3Panel');
 var NvD3Panel = require('./nvd3.jsx');
+
+
+const minDate = new Date();
+const maxDate = new Date();
+minDate.setFullYear(2016, 1, 1);
+maxDate.setFullYear(2016, 1, 29);
+minDate.setHours(0, 0, 0, 0);
+maxDate.setHours(0, 0, 0, 0);
 
 class Master extends React.Component {
     constructor(props) {
         super(props);
-
-        const minDate = new Date();
-        const maxDate = new Date();
-        minDate.setFullYear(2016, 1, 1);
-        maxDate.setFullYear(2016, 1, 29);
-        minDate.setHours(0, 0, 0, 0);
-        maxDate.setHours(0, 0, 0, 0);
-
         this.state = {
-            minDate: minDate,
-            maxDate: maxDate,
-            autoOk: true,
-            disableYearSelection: true,
+            date: new Date("2016-02-01 00:00:00")
         };
     }
 
-    onDrop(files) {
-        console.log('Received files: ', files);
+
+    _onDrop(files) {
+        console.log("send new props");
+
+        this.setState({
+            actual: files[0]
+        });
     }
 
     _onDismiss() {
@@ -37,15 +38,19 @@ class Master extends React.Component {
     }
 
     _onClickOnUpload() {
-        console.log("click");
         this.refs.dz.open();
     }
 
     _handleFileUploaded() {
-        console.log("handleFileUploaded");
-        console.log(this.refs.inputFile.files[0]);
         this.setState({
             actual: this.refs.inputFile.files[0].preview
+        })
+    }
+
+    _onChangeDate(e, newDate) {
+        console.log("Select new date: " + newDate);
+        this.setState({
+            date: newDate
         })
     }
 
@@ -55,17 +60,12 @@ class Master extends React.Component {
         var label = "Upload Your Data";
 
         var flatButton = <FlatButton label={label} onClick={this._onClickOnUpload.bind(this)}/>;
-
-        //<form>
-        //    <input ref="inputFile" type='file' style={{width:0, height:0}} accept="text/csv"
-        //           onchange={this._handleFileUploaded.bind(this)}/>​
-        //</form>
         return (
             <div>
                 <AppBar
                     title={title} iconElementRight={flatButton}/>
 
-                <Dropzone onDrop={this.onDrop} multiple={false}
+                <Dropzone onDrop={this._onDrop.bind(this)} multiple={false}
                           ref="dz"
                           style={{width:0, height:0}}
                           accept="text/csv">
@@ -74,21 +74,30 @@ class Master extends React.Component {
                     <DatePicker
                         mode="landscape"
                         hintText="Pick a date to see prediction"
-                        autoOk={this.state.autoOk}
-                        minDate={this.state.minDate}
-                        maxDate={this.state.maxDate}
-                        disableYearSelection={this.state.disableYearSelection}
+                        autoOk={true}
+                        minDate={minDate}
+                        maxDate={maxDate}
+                        disableYearSelection={true}
+                        onChange={this._onChangeDate.bind(this)}
+                        defaultDate={this.state.date}
                     />
                 </div>
 
+                <div style={{height:500}}>
 
-                <NvD3Panel actual={this.state.actual} onError={this._onError}/>
+                    <NvD3Panel actual={this.state.actual} date={this.state.date}
+                               onError={this._onError}/>
+                </div>
+
+                <Snackbar ref="snackbar" message={this.state.errorMessage ? this.state.errorMessage:""}/>
             </div>
         );
     }
 
     _onError() {
-
+        this.setState({
+            errorMessage: "Error in Script Loading"
+        })
     }
 
 }
