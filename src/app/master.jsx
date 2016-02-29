@@ -7,6 +7,7 @@ const React = require('react');
 const {AppBar, DatePicker, FlatButton, Snackbar} = require('material-ui');
 var Dropzone = require('react-dropzone');
 var NvD3Panel = require('./nvd3.jsx');
+var NvD32 = require('./nvd3Simple.jsx');
 
 
 const minDate = new Date();
@@ -88,6 +89,7 @@ class Master extends React.Component {
                     <NvD3Panel actual={this.state.actual} date={this.state.date}
                                onError={this._onError}/>
                 </div>
+
 
                 <Snackbar ref="snackbar" message={this.state.errorMessage ? this.state.errorMessage:""}/>
             </div>
