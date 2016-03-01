@@ -71,19 +71,17 @@ class Master extends React.Component {
                           style={{width:0, height:0}}
                           accept="text/csv">
                 </Dropzone>
-                <div style={{margin:"0 auto", width: 300}}>
-                    <DatePicker
-                        mode="landscape"
-                        hintText="Pick a date to see prediction"
-                        autoOk={true}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                        disableYearSelection={true}
-                        onChange={this._onChangeDate.bind(this)}
-                        defaultDate={this.state.date}
-                    />
-                </div>
-
+                <DatePicker
+                    mode="landscape"
+                    hintText="Pick a date to see prediction"
+                    autoOk={true}
+                    minDate={minDate}
+                    textFieldStyle={{display:"block", margin:"0 auto"}}
+                    maxDate={maxDate}
+                    disableYearSelection={true}
+                    onChange={this._onChangeDate.bind(this)}
+                    defaultDate={this.state.date}
+                />
                 <div style={{height:500}}>
 
                     <NvD3Panel actual={this.state.actual} date={this.state.date}
