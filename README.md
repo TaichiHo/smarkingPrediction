@@ -6,5 +6,6 @@ This is the repository for the [smarking project](http://bittiger.io/microprojec
 npm install
 gulp
 ```
+Worked under node 4.2.2 and google chrome.
 ### Authors
 Yueheng He, Zhanyu Dong

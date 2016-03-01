@@ -8,7 +8,6 @@ const {Paper} = require('material-ui');
 import scriptLoader from 'react-async-script-loader'
 var moment = require('moment');
 var d3 = require('d3');
-//var NVD3Chart = require('react-nvd3');
 
 
 class NvD3Panel extends React.Component {
@@ -85,17 +84,17 @@ class NvD3Panel extends React.Component {
 
 
         var actualValues = this.state.actualOccupancy.filter((el) => {
-            console.log(moment(new Date(el.time)).format('MMMM Do YYYY')
-                + " " + moment(this.props.date).format('MMMM Do YYYY'));
+            //console.log(moment(new Date(el.time)).format('MMMM Do YYYY')
+            //    + " " + moment(this.props.date).format('MMMM Do YYYY'));
 
-            return moment(new Date(el.time)).format('MMMM Do YYYY') ===
+            return moment(new Date(el.hour)).format('MMMM Do YYYY') ===
                 moment(this.props.date).format('MMMM Do YYYY');
         });
 
 
         actualValues = actualValues.map((el)=> {
             return {
-                time: moment(new Date(el.time)).format('MMMM Do YYYY h a'),
+                time: moment(new Date(el.hour)).format('MMMM Do YYYY h a'),
                 occupancy: el.occupancy
             }
         });
@@ -115,7 +114,6 @@ class NvD3Panel extends React.Component {
             return prev + Math.pow(el.occupancy - actualValues[index].occupancy, 2);
         }, 0);
 
-        //console.log("RMSE", Math.sqrt(squareError / actualValues.length));
         var rmse = actualValues.length == 0 ? 0 : Math.sqrt(squareError / actualValues.length).toFixed(2);
 
         var datum = [{
@@ -156,7 +154,7 @@ class NvD3Panel extends React.Component {
                            height={600}
                            showValues="true" datum={datum} x="time" y="occupancy"
                            containStyle={{height:500}}
-                           xAxis={{axisLabel: 'Time'}} yAxis={{axisLabel:'Occupancy'}}
+                           xAxis={{axisLabel: 'Hour'}} yAxis={{axisLabel:'Occupancy'}}
                            configure={this.configureChart.bind(this)}
                 />
                 {showError ? <div style={{fontSize:12, marginLeft:"100"}}>
