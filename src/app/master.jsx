@@ -7,8 +7,6 @@ const React = require('react');
 const {AppBar, DatePicker, FlatButton, Snackbar} = require('material-ui');
 var Dropzone = require('react-dropzone');
 var NvD3Panel = require('./nvd3.jsx');
-var NvD32 = require('./nvd3Simple.jsx');
-
 
 const minDate = new Date();
 const maxDate = new Date();
